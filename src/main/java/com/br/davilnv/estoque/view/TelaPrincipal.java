@@ -6,6 +6,7 @@ import javax.swing.JMenuItem;
 
 public class TelaPrincipal extends TelaPadrao{
 	private PainelAdicionarComputador painelAdicionarComputador;
+	private PainelTabela painelTabela;
 	private JMenu computadorMenu, computadorSubmenu;
 	private JMenuItem adicionarItem, alterarItem, removerItem, listarTodos, buscarPorNomeItem, buscarPorIdItem;
 	
@@ -13,6 +14,8 @@ public class TelaPrincipal extends TelaPadrao{
 	public TelaPrincipal(String titulo) {
 		super(titulo);
 		
+		painelTabela = new PainelTabela("Tabela");
+		painelTabela.setVisible(true);
 		painelAdicionarComputador = new PainelAdicionarComputador("Adicionar um Computador");
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -41,6 +44,7 @@ public class TelaPrincipal extends TelaPadrao{
 		setJMenuBar(menuBar);
 		
 		add(painelAdicionarComputador);
+		add(painelTabela);
 		
 	}
 
@@ -70,6 +74,10 @@ public class TelaPrincipal extends TelaPadrao{
 
 	public JMenuItem getBuscarPorIdItem() {
 		return buscarPorIdItem;
+	}
+
+	public PainelTabela getPainelTabela() {
+		return painelTabela;
 	}
 	
 }

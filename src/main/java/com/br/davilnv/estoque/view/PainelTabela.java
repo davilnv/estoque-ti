@@ -5,13 +5,13 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-public class PainelPadrao extends JPanel{
+public class PainelTabela extends JPanel{
 	private Font fonte;
 	
-	public PainelPadrao(String titulo) {
+	public PainelTabela(String titulo) {
 		setSize(1336, 339);
 		setBorder(BorderFactory.createTitledBorder(titulo));
-		setLocation(15, 15);
+		setLocation(15, 364);
 		setLayout(null);
 		
 		fonte = new Font("Arial", Font.PLAIN, 12);
@@ -22,5 +22,4 @@ public class PainelPadrao extends JPanel{
 	public Font getFonte() {
 		return fonte;
 	}
-
 }
