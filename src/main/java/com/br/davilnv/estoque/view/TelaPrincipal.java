@@ -43,8 +43,8 @@ public class TelaPrincipal extends TelaPadrao{
 		
 		setJMenuBar(menuBar);
 		
-		add(painelAdicionarComputador);
 		add(painelTabela);
+		add(painelAdicionarComputador);
 		
 	}
 

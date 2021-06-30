@@ -31,6 +31,12 @@ public class ControlePrincipal implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == telaMenu.getEntrarButton()) {
+			try {
+				telaPrincipal.getPainelTabela().getModelo().setNumRows(0);
+				telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(null, "Nenhum computador encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
 			telaPrincipal.setVisible(true);
 			telaMenu.setVisible(false);
 		}

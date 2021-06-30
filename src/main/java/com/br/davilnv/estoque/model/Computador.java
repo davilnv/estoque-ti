@@ -95,5 +95,12 @@ public class Computador {
 	public void setGrupo(String grupo) {
 		this.grupo = grupo;
 	}
+
+	@Override
+	public String toString() {
+		return "Computador [id=" + id + ", nome=" + nome + ", processador=" + processador + ", memoria=" + memoria
+				+ ", hd=" + hd + ", ssd=" + ssd + ", situacao=" + situacao + ", observacao=" + observacao + ", grupo="
+				+ grupo + "]";
+	}
 	
 }
