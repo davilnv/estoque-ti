@@ -13,6 +13,10 @@ import com.br.davilnv.estoque.model.SQLiteJDBCDriverConnection;
 
 public class PainelAdicionarComputador extends PainelPadrao{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton confirmarAdicaoButton;
 	private JTextField numeroField, nomeField, processadorField, memoriaField, hdField, ssdField, situacaoField, observacaoField;
 	private JComboBox<String> grupoBox;

@@ -5,10 +5,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class TelaPrincipal extends TelaPadrao{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private PainelAdicionarComputador painelAdicionarComputador;
 	private PainelTabela painelTabela;
 	private JMenu computadorMenu, computadorSubmenu;
-	private JMenuItem adicionarItem, alterarItem, removerItem, listarTodos, buscarPorNomeItem, buscarPorIdItem;
+	private JMenuItem adicionarItem, alterarItem, removerItem, atualizarTodos, buscarPorNomeItem, buscarPorIdItem;
 	
 
 	public TelaPrincipal(String titulo) {
@@ -26,14 +30,14 @@ public class TelaPrincipal extends TelaPadrao{
 		adicionarItem = new JMenuItem("Adicionar Computador");
 		alterarItem = new JMenuItem("Alterar Computador");
 		removerItem = new JMenuItem("Remover Computador");
-		listarTodos = new JMenuItem("Listar Todos");
+		atualizarTodos = new JMenuItem("Atualizar Tabela");
 		buscarPorNomeItem = new JMenuItem("Buscar por nome");
 		buscarPorIdItem = new JMenuItem("Buscar por número");
 		
 		computadorMenu.add(adicionarItem);
 		computadorMenu.add(alterarItem);
 		computadorMenu.add(removerItem);
-		computadorMenu.add(listarTodos);
+		computadorMenu.add(atualizarTodos);
 		computadorMenu.add(computadorSubmenu);
 		
 		computadorSubmenu.add(buscarPorNomeItem);
@@ -64,8 +68,8 @@ public class TelaPrincipal extends TelaPadrao{
 		return removerItem;
 	}
 
-	public JMenuItem getListarTodos() {
-		return listarTodos;
+	public JMenuItem getAtualizarItem() {
+		return atualizarTodos;
 	}
 
 	public JMenuItem getBuscarPorNomeItem() {

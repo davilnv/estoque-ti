@@ -6,6 +6,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class PainelPadrao extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Font fonte;
 	
 	public PainelPadrao(String titulo) {

@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 
 public class TelaMenu extends TelaPadrao{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel logoLabel;
 	private JButton entrarButton;
 

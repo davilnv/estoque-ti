@@ -12,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import com.br.davilnv.estoque.model.Computador;
 
 public class PainelTabela extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Font fonte;
 	private JScrollPane barraRolagem;
 	private DefaultTableModel modelo = new DefaultTableModel();
@@ -36,17 +40,17 @@ public class PainelTabela extends JPanel{
 		modelo.addColumn("Observação");
 		modelo.addColumn("Grupo");
 		tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
-		tabela.getColumnModel().getColumn(1).setPreferredWidth(350);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(350);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(310);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(290);
 		tabela.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tabela.getColumnModel().getColumn(4).setPreferredWidth(50);
 		tabela.getColumnModel().getColumn(5).setPreferredWidth(50);
-		tabela.getColumnModel().getColumn(6).setPreferredWidth(100);
-		tabela.getColumnModel().getColumn(7).setPreferredWidth(216);
+		tabela.getColumnModel().getColumn(6).setPreferredWidth(140);
+		tabela.getColumnModel().getColumn(7).setPreferredWidth(230);
 		tabela.getColumnModel().getColumn(8).setPreferredWidth(100);
 		
-		barraRolagem = new JScrollPane();
-		barraRolagem.setBounds(15, 364, 1366, 339);
+		barraRolagem = new JScrollPane(tabela);
+		barraRolagem.setBounds(5, 20, 1327, 315);
 		
 		
 		add(barraRolagem);
@@ -56,7 +60,6 @@ public class PainelTabela extends JPanel{
 	public void criarTabela(ArrayList<Computador> computadores) {
 		modelo.setNumRows(0);
 		for (Computador pc : computadores) {
-			System.out.println(pc);
 			modelo.addRow(new Object[]{pc.getId(), pc.getNome(), pc.getProcessador(), pc.getMemoria(), pc.getHd(), pc.getSsd(), pc.getSituacao(), pc.getObservacao(), pc.getGrupo()});
 		}
 	}
