@@ -6,8 +6,6 @@ import com.br.davilnv.estoque.view.TelaPrincipal;
 
 public class App {
     public static void main( String[] args ) {
-    	TelaMenu telaMenu = new TelaMenu("Sistema do TI");
-    	TelaPrincipal telaPrincipal = new TelaPrincipal("Sistema do TI");
-    	new ControlePrincipal(telaMenu, telaPrincipal);
+    	new ControlePrincipal();
     }
 }

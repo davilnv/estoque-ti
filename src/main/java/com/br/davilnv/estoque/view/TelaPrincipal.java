@@ -10,6 +10,7 @@ public class TelaPrincipal extends TelaPadrao{
 	 */
 	private static final long serialVersionUID = 1L;
 	private PainelAdicionarComputador painelAdicionarComputador;
+	private PainelAlterarComputador painelAlterarComputador;
 	private PainelTabela painelTabela;
 	private JMenu computadorMenu, computadorSubmenu;
 	private JMenuItem adicionarItem, alterarItem, removerItem, atualizarTodos, buscarPorNomeItem, buscarPorIdItem;
@@ -21,6 +22,7 @@ public class TelaPrincipal extends TelaPadrao{
 		painelTabela = new PainelTabela("Tabela");
 		painelTabela.setVisible(true);
 		painelAdicionarComputador = new PainelAdicionarComputador("Adicionar um Computador");
+		painelAlterarComputador = new PainelAlterarComputador("Alterar um Computador");
 		
 		JMenuBar menuBar = new JMenuBar();
 		
@@ -49,6 +51,7 @@ public class TelaPrincipal extends TelaPadrao{
 		
 		add(painelTabela);
 		add(painelAdicionarComputador);
+		add(painelAlterarComputador);
 		
 	}
 
@@ -82,6 +85,10 @@ public class TelaPrincipal extends TelaPadrao{
 
 	public PainelTabela getPainelTabela() {
 		return painelTabela;
+	}
+
+	public PainelAlterarComputador getPainelAlterarComputador() {
+		return painelAlterarComputador;
 	}
 	
 }

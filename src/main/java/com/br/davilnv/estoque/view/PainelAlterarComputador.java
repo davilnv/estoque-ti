@@ -11,17 +11,17 @@ import javax.swing.JTextField;
 
 import com.br.davilnv.estoque.model.SQLiteJDBCDriverConnection;
 
-public class PainelAdicionarComputador extends PainelPadrao{
+public class PainelAlterarComputador extends PainelPadrao{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JButton confirmarAdicaoButton;
+	private JButton confirmarAlteracaoButton, buscarButton;
 	private JTextField numeroField, nomeField, processadorField, memoriaField, hdField, ssdField, situacaoField, observacaoField;
 	private JComboBox<String> grupoBox;
 
-	public PainelAdicionarComputador(String titulo){
+	public PainelAlterarComputador(String titulo){
 		super(titulo);
 		
 		grupoBox = new JComboBox<>();
@@ -37,25 +37,42 @@ public class PainelAdicionarComputador extends PainelPadrao{
 		numeroField.setBounds(30, 66, 140, 20);
 		nomeField = new JTextField();
 		nomeField.setBounds(230, 66, 140, 20);
+		nomeField.setEnabled(false);
 		processadorField = new JTextField();
 		processadorField.setBounds(430, 66, 140, 20);
+		processadorField.setEnabled(false);
 		memoriaField = new JTextField();
 		memoriaField.setBounds(630, 66, 140, 20);
+		memoriaField.setEnabled(false);
 		hdField = new JTextField();
 		hdField.setBounds(830, 66, 140, 20);
+		hdField.setEnabled(false);
 		ssdField = new JTextField();
 		ssdField.setBounds(1030, 66, 140, 20);
+		ssdField.setEnabled(false);
 		situacaoField = new JTextField();
 		situacaoField.setBounds(30, 128, 140, 20);
+		situacaoField.setEnabled(false);
 		observacaoField = new JTextField();
 		observacaoField.setBounds(230, 128, 140, 20);
+		observacaoField.setEnabled(false);
 		
 		grupoBox.setBounds(430, 128, 140, 20);
+		grupoBox.setEnabled(false);
 		
-		confirmarAdicaoButton = new JButton("Confirmar Adição");
-		confirmarAdicaoButton.setBackground(Color.WHITE);
-		confirmarAdicaoButton.setFont(new Font("Arial", Font.BOLD, 10));
-		confirmarAdicaoButton.setBounds(30, 178, 140, 30);
+		grupoBox.setSelectedItem(grupoBox.getItemAt(19));
+
+		buscarButton = new JButton("Buscar Computador");
+		buscarButton.setBackground(Color.WHITE);
+		buscarButton.setFont(new Font("Arial", Font.BOLD, 10));
+		buscarButton.setBounds(30, 178, 140, 30);
+		
+		confirmarAlteracaoButton = new JButton("Confirmar Alteração");
+		confirmarAlteracaoButton.setBackground(Color.WHITE);
+		confirmarAlteracaoButton.setFont(new Font("Arial", Font.BOLD, 10));
+		confirmarAlteracaoButton.setBounds(230, 178, 140, 30);
+		confirmarAlteracaoButton.setEnabled(false);
+		
 		
 		add(numeroField);
 		add(nomeField);
@@ -66,7 +83,8 @@ public class PainelAdicionarComputador extends PainelPadrao{
 		add(situacaoField);
 		add(observacaoField);
 		add(grupoBox);
-		add(confirmarAdicaoButton);
+		add(buscarButton);
+		add(confirmarAlteracaoButton);
 		
 	}
 	
@@ -84,8 +102,12 @@ public class PainelAdicionarComputador extends PainelPadrao{
 		g.drawString("Grupo:", 430, 112);
 	}
 
-	public JButton getConfirmarAdicaoButton() {
-		return confirmarAdicaoButton;
+	public JButton getBuscarButton() {
+		return buscarButton;
+	}
+
+	public JButton getConfirmarAlteracaoButton() {
+		return confirmarAlteracaoButton;
 	}
 
 	public JTextField getNumeroField() {
