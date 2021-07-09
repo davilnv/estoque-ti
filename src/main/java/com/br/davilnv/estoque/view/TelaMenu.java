@@ -19,7 +19,6 @@ public class TelaMenu extends TelaPadrao{
 	public TelaMenu(String titulo) {
 		super(titulo);
 		
-//		ImageIcon icone = new ImageIcon("res/logo.png");
 		ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("logo.png"));
 		logoLabel = new JLabel(icone);
 		logoLabel.setBounds(483, 200, 400, 177);
@@ -27,8 +26,6 @@ public class TelaMenu extends TelaPadrao{
 		entrarButton.setBackground(Color.WHITE);
 		entrarButton.setFont(new Font("Arial", Font.BOLD, 14));
 		entrarButton.setBounds(583, 407, 200, 30);
-		
-
 		
 		add(logoLabel);
 		add(entrarButton);

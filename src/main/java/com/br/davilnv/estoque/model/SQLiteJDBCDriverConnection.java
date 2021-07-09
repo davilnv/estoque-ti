@@ -1,18 +1,43 @@
 package com.br.davilnv.estoque.model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SQLiteJDBCDriverConnection {
 	private static Statement statement;
 	
 	private static void connect() {
+		List<String> leitura = null;
+		String localbd = null;
         try {
-        	Connection connection = DriverManager.getConnection("jdbc:sqlite:banco.db");
+        	try {
+        		new File("c:\\banco").mkdir();
+				FileWriter localBanco = new FileWriter("c:\\banco\\localBanco.txt");
+				PrintWriter gravarArq = new PrintWriter(localBanco);
+				gravarArq.print("jdbc:sqlite:/banco/banco.db");
+				localBanco.close();
+				Path path = Paths.get("/banco/localBanco.txt");
+				leitura = Files.readAllLines(path);
+			} catch (IOException e) {
+			}
+        	
+        	for (String string : leitura) {
+        		localbd = string;
+			}
+        	
+        	Connection connection = DriverManager.getConnection(localbd);
             System.out.println("Conexão realizada!");
             statement = connection.createStatement();
            
