@@ -17,6 +17,7 @@ import java.util.List;
 
 public class SQLiteJDBCDriverConnection {
 	private static Statement statement;
+	private static Connection connection;
 	
 	private static void connect() {
 		List<String> leitura = null;
@@ -37,7 +38,9 @@ public class SQLiteJDBCDriverConnection {
         		localbd = string;
 			}
         	
-        	Connection connection = DriverManager.getConnection(localbd);
+        	if(connection == null){        		
+        		connection = DriverManager.getConnection(localbd);
+        	}
             System.out.println("Conexão realizada!");
             statement = connection.createStatement();
            
@@ -75,6 +78,21 @@ public class SQLiteJDBCDriverConnection {
 				+ computador.getObservacao() +"', '"
 				+ computador.getGrupo() 
 				+"')";
+		return statement.execute(SQL);
+	}
+	
+	public static boolean alterarComputador(int id, Computador computador) throws SQLException {
+		connect();
+		String SQL = "UPDATE COMPUTADOR SET NOME = '" + computador.getNome() + "', "
+				+ "PROCESSADOR = '" + computador.getProcessador() + "', "
+				+ "MEMORIA = " + computador.getMemoria() + ", "
+				+ "HD = " + computador.getHd() + ", "
+				+ "SSD = " + computador.getSsd() + ", "
+				+ "SITUACAO = '" + computador.getSituacao() + "', "
+				+ "OBSERVACAO = '" + computador.getObservacao() + "', "
+				+ "GRUPO = '" + computador.getGrupo() + "' "
+				+ "WHERE ID = " + id;
+		
 		return statement.execute(SQL);
 	}
 	

@@ -35,12 +35,13 @@ public class ControlePrincipal{
 			}
 		});
 		
-		ComputadoAcao computadorAcao = new ComputadoAcao();
+		ComputadorAcao computadorAcao = new ComputadorAcao();
 		telaPrincipal.getAdicionarItem().addActionListener(computadorAcao);
 		telaPrincipal.getPainelAdicionarComputador().getConfirmarAdicaoButton().addActionListener(computadorAcao);;
 
 		telaPrincipal.getAlterarItem().addActionListener(computadorAcao);
 		telaPrincipal.getPainelAlterarComputador().getBuscarButton().addActionListener(computadorAcao);
+		telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton().addActionListener(computadorAcao);
 		
 		telaPrincipal.getRemoverItem().addActionListener(computadorAcao);
 		
@@ -51,7 +52,7 @@ public class ControlePrincipal{
 		telaPrincipal.getBuscarPorIdItem().addActionListener(computadorAcao);
 	}
 	
-	public class ComputadoAcao implements ActionListener {
+	public class ComputadorAcao implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == telaPrincipal.getAdicionarItem()) {
@@ -125,6 +126,49 @@ public class ControlePrincipal{
 				} catch (NumberFormatException e1) {
 					TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
 				}
+			}
+			
+			if (e.getSource() == telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton()) {
+				try {
+					int id = Integer.parseInt(telaPrincipal.getPainelAlterarComputador().getNumeroField().getText());
+					String nome = telaPrincipal.getPainelAlterarComputador().getNomeField().getText();
+					String processador = telaPrincipal.getPainelAlterarComputador().getProcessadorField().getText();
+					int memoria = Integer.parseInt(telaPrincipal.getPainelAlterarComputador().getMemoriaField().getText());
+					int hd = Integer.parseInt(telaPrincipal.getPainelAlterarComputador().getHdField().getText());
+					int ssd = Integer.parseInt(telaPrincipal.getPainelAlterarComputador().getSsdField().getText());
+					String situacao = telaPrincipal.getPainelAlterarComputador().getSituacaoField().getText();
+					String observacao = telaPrincipal.getPainelAlterarComputador().getObservacaoField().getText();
+					String grupo = ""+telaPrincipal.getPainelAlterarComputador().getGrupoBox().getSelectedItem();
+					if(nome.equals("") || processador.equals("")) {
+						throw new Exception();
+					}
+					Computador computador = new Computador(id, nome, processador, memoria, hd, ssd, situacao, observacao, grupo);
+					SQLiteJDBCDriverConnection.alterarComputador(id, computador);
+					TelaMensagem.exibirMensagemSucesso("Computador alterado com sucesso!");
+					telaPrincipal.getPainelAlterarComputador().getNumeroField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getNomeField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getNomeField().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getProcessadorField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getProcessadorField().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getMemoriaField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getMemoriaField().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getHdField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getHdField().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getSsdField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getSsdField().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getSituacaoField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getSituacaoField().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getObservacaoField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getObservacaoField().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getGrupoBox().setSelectedIndex(0);
+					telaPrincipal.getPainelAlterarComputador().getGrupoBox().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton().setEnabled(false);
+					telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
+				} catch (Exception ee) {
+					ee.printStackTrace();
+					TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
+				}
+				
 			}
 			
 			if(e.getSource() == telaPrincipal.getRemoverItem()) {
