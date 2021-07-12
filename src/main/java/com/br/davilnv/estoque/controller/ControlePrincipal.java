@@ -44,6 +44,8 @@ public class ControlePrincipal{
 		telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton().addActionListener(computadorAcao);
 		
 		telaPrincipal.getRemoverItem().addActionListener(computadorAcao);
+		telaPrincipal.getPainelRemoverComputador().getBuscarButton().addActionListener(computadorAcao);
+		telaPrincipal.getPainelRemoverComputador().getConfirmarRemocaoButton().addActionListener(computadorAcao);
 		
 		telaPrincipal.getAtualizarItem().addActionListener(computadorAcao);
 		
@@ -58,6 +60,7 @@ public class ControlePrincipal{
 			if(e.getSource() == telaPrincipal.getAdicionarItem()) {
 				telaPrincipal.getPainelAdicionarComputador().setVisible(true);
 				telaPrincipal.getPainelAlterarComputador().setVisible(false);
+				telaPrincipal.getPainelRemoverComputador().setVisible(false);
 			}
 			
 			if(e.getSource() == telaPrincipal.getPainelAdicionarComputador().getConfirmarAdicaoButton()) {
@@ -94,6 +97,7 @@ public class ControlePrincipal{
 			
 			if(e.getSource() == telaPrincipal.getAlterarItem()) {
 				telaPrincipal.getPainelAdicionarComputador().setVisible(false);
+				telaPrincipal.getPainelRemoverComputador().setVisible(false);
 				telaPrincipal.getPainelAlterarComputador().setVisible(true);
 			}
 			
@@ -172,7 +176,61 @@ public class ControlePrincipal{
 			}
 			
 			if(e.getSource() == telaPrincipal.getRemoverItem()) {
-				
+				telaPrincipal.getPainelRemoverComputador().setVisible(true);
+				telaPrincipal.getPainelAdicionarComputador().setVisible(false);
+				telaPrincipal.getPainelAlterarComputador().setVisible(false);
+			}
+			
+			if (e.getSource() == telaPrincipal.getPainelRemoverComputador().getBuscarButton()) {
+				try {
+					int id = Integer.parseInt(telaPrincipal.getPainelRemoverComputador().getNumeroField().getText());
+					Computador pc = SQLiteJDBCDriverConnection.buscarComputadorPorId(id);
+					telaPrincipal.getPainelRemoverComputador().getNomeField().setText(pc.getNome());
+					telaPrincipal.getPainelRemoverComputador().getProcessadorField().setText(pc.getProcessador());
+					telaPrincipal.getPainelRemoverComputador().getMemoriaField().setText(""+pc.getMemoria());
+					telaPrincipal.getPainelRemoverComputador().getHdField().setText(""+pc.getHd());
+					telaPrincipal.getPainelRemoverComputador().getSsdField().setText(""+pc.getSsd());
+					telaPrincipal.getPainelRemoverComputador().getSituacaoField().setText(pc.getSituacao());
+					telaPrincipal.getPainelRemoverComputador().getObservacaoField().setText(pc.getObservacao());
+					telaPrincipal.getPainelRemoverComputador().getGrupoBox().setSelectedItem(pc.getGrupo());
+				} catch (SQLException e1) {
+					TelaMensagem.exibirMensagemErro(Mensagens.NULL_COMPUTADOR);
+				} catch (NumberFormatException e1) {
+					TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
+				}
+			}
+			
+			if(e.getSource() == telaPrincipal.getPainelRemoverComputador().getConfirmarRemocaoButton()) {
+				try {
+					int id = Integer.parseInt(telaPrincipal.getPainelRemoverComputador().getNumeroField().getText());
+					int op = TelaMensagem.exibirMensagemConfirmacao(Mensagens.REMOVER_COMPUTADOR+"["+id+"]?");
+					if(op == 0) {
+						SQLiteJDBCDriverConnection.removerComputador(id);
+						TelaMensagem.exibirMensagemSucesso("Computador removido com sucesso!");
+						telaPrincipal.getPainelRemoverComputador().getNumeroField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getNomeField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getNomeField().setEnabled(false);
+						telaPrincipal.getPainelRemoverComputador().getProcessadorField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getProcessadorField().setEnabled(false);
+						telaPrincipal.getPainelRemoverComputador().getMemoriaField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getMemoriaField().setEnabled(false);
+						telaPrincipal.getPainelRemoverComputador().getHdField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getHdField().setEnabled(false);
+						telaPrincipal.getPainelRemoverComputador().getSsdField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getSsdField().setEnabled(false);
+						telaPrincipal.getPainelRemoverComputador().getSituacaoField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getSituacaoField().setEnabled(false);
+						telaPrincipal.getPainelRemoverComputador().getObservacaoField().setText("");
+						telaPrincipal.getPainelRemoverComputador().getObservacaoField().setEnabled(false);
+						telaPrincipal.getPainelRemoverComputador().getGrupoBox().setSelectedIndex(0);
+						telaPrincipal.getPainelRemoverComputador().getGrupoBox().setEnabled(false);
+						telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
+					}
+				} catch (SQLException e1) {
+					TelaMensagem.exibirMensagemErro(Mensagens.NULL_COMPUTADOR);
+				} catch (NumberFormatException e2) {
+					TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
+				}
 			}
 			
 			if(e.getSource() == telaPrincipal.getAtualizarItem()) {

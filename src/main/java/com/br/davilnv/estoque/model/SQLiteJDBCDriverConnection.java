@@ -96,6 +96,12 @@ public class SQLiteJDBCDriverConnection {
 		return statement.execute(SQL);
 	}
 	
+	public static boolean removerComputador(int id) throws SQLException {
+		connect();
+		String SQL = "DELETE FROM COMPUTADOR WHERE id = " + id;
+		return statement.execute(SQL);
+	}
+	
 	public static Computador buscarComputadorPorId(int id) throws SQLException {
 		connect();
 		String SQL = "SELECT * FROM COMPUTADOR WHERE id = "+ id;
