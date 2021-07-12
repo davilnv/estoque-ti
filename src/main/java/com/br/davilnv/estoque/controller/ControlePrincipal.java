@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import com.br.davilnv.estoque.model.Computador;
 import com.br.davilnv.estoque.model.Mensagens;
 import com.br.davilnv.estoque.model.SQLiteJDBCDriverConnection;
+import com.br.davilnv.estoque.view.PainelPadrao;
 import com.br.davilnv.estoque.view.TelaMensagem;
 import com.br.davilnv.estoque.view.TelaMenu;
 import com.br.davilnv.estoque.view.TelaPrincipal;
@@ -37,15 +38,15 @@ public class ControlePrincipal{
 		
 		ComputadorAcao computadorAcao = new ComputadorAcao();
 		telaPrincipal.getAdicionarItem().addActionListener(computadorAcao);
-		telaPrincipal.getPainelAdicionarComputador().getConfirmarAdicaoButton().addActionListener(computadorAcao);;
+		telaPrincipal.getPainelAdicionarComputador().getConfirmarButton().addActionListener(computadorAcao);;
 
 		telaPrincipal.getAlterarItem().addActionListener(computadorAcao);
 		telaPrincipal.getPainelAlterarComputador().getBuscarButton().addActionListener(computadorAcao);
-		telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton().addActionListener(computadorAcao);
+		telaPrincipal.getPainelAlterarComputador().getConfirmarButton().addActionListener(computadorAcao);
 		
 		telaPrincipal.getRemoverItem().addActionListener(computadorAcao);
 		telaPrincipal.getPainelRemoverComputador().getBuscarButton().addActionListener(computadorAcao);
-		telaPrincipal.getPainelRemoverComputador().getConfirmarRemocaoButton().addActionListener(computadorAcao);
+		telaPrincipal.getPainelRemoverComputador().getConfirmarButton().addActionListener(computadorAcao);
 		
 		telaPrincipal.getAtualizarItem().addActionListener(computadorAcao);
 		
@@ -55,6 +56,24 @@ public class ControlePrincipal{
 	}
 	
 	public class ComputadorAcao implements ActionListener {
+		
+		public void limpezaDeCampos(PainelPadrao painel) {
+			painel.getNumeroField().setText("");
+			painel.getNomeField().setText("");
+			painel.getProcessadorField().setText("");
+			painel.getMemoriaField().setText("");
+			painel.getHdField().setText("");
+			painel.getSsdField().setText("");
+			painel.getSituacaoField().setText("");
+			painel.getObservacaoField().setText("");
+			painel.getGrupoBox().setSelectedIndex(19);
+			try {
+				telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
+			} catch (SQLException e) {
+				TelaMensagem.exibirMensagemErro(Mensagens.NULL_COMPUTADOR);
+			}
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == telaPrincipal.getAdicionarItem()) {
@@ -63,7 +82,7 @@ public class ControlePrincipal{
 				telaPrincipal.getPainelRemoverComputador().setVisible(false);
 			}
 			
-			if(e.getSource() == telaPrincipal.getPainelAdicionarComputador().getConfirmarAdicaoButton()) {
+			if(e.getSource() == telaPrincipal.getPainelAdicionarComputador().getConfirmarButton()) {
 				try {
 					int id = Integer.parseInt(telaPrincipal.getPainelAdicionarComputador().getNumeroField().getText());
 					String nome = telaPrincipal.getPainelAdicionarComputador().getNomeField().getText();
@@ -108,7 +127,7 @@ public class ControlePrincipal{
 					Computador pc = SQLiteJDBCDriverConnection.buscarComputadorPorId(id);
 					telaPrincipal.getPainelAlterarComputador().getNumeroField().setEnabled(false);
 					telaPrincipal.getPainelAlterarComputador().getBuscarButton().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton().setEnabled(true);
+					telaPrincipal.getPainelAlterarComputador().getConfirmarButton().setEnabled(true);
 					telaPrincipal.getPainelAlterarComputador().getNomeField().setText(pc.getNome());
 					telaPrincipal.getPainelAlterarComputador().getNomeField().setEnabled(true);
 					telaPrincipal.getPainelAlterarComputador().getProcessadorField().setText(pc.getProcessador());
@@ -132,7 +151,7 @@ public class ControlePrincipal{
 				}
 			}
 			
-			if (e.getSource() == telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton()) {
+			if (e.getSource() == telaPrincipal.getPainelAlterarComputador().getConfirmarButton()) {
 				try {
 					int id = Integer.parseInt(telaPrincipal.getPainelAlterarComputador().getNumeroField().getText());
 					String nome = telaPrincipal.getPainelAlterarComputador().getNomeField().getText();
@@ -150,6 +169,7 @@ public class ControlePrincipal{
 					SQLiteJDBCDriverConnection.alterarComputador(id, computador);
 					TelaMensagem.exibirMensagemSucesso("Computador alterado com sucesso!");
 					telaPrincipal.getPainelAlterarComputador().getNumeroField().setText("");
+					telaPrincipal.getPainelAlterarComputador().getNumeroField().setEnabled(true);
 					telaPrincipal.getPainelAlterarComputador().getNomeField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getNomeField().setEnabled(false);
 					telaPrincipal.getPainelAlterarComputador().getProcessadorField().setText("");
@@ -164,9 +184,10 @@ public class ControlePrincipal{
 					telaPrincipal.getPainelAlterarComputador().getSituacaoField().setEnabled(false);
 					telaPrincipal.getPainelAlterarComputador().getObservacaoField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getObservacaoField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getGrupoBox().setSelectedIndex(0);
+					telaPrincipal.getPainelAlterarComputador().getGrupoBox().setSelectedIndex(19);
 					telaPrincipal.getPainelAlterarComputador().getGrupoBox().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getConfirmarAlteracaoButton().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getConfirmarButton().setEnabled(false);
+					telaPrincipal.getPainelAlterarComputador().getBuscarButton().setEnabled(true);
 					telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
 				} catch (Exception ee) {
 					ee.printStackTrace();
@@ -200,7 +221,7 @@ public class ControlePrincipal{
 				}
 			}
 			
-			if(e.getSource() == telaPrincipal.getPainelRemoverComputador().getConfirmarRemocaoButton()) {
+			if(e.getSource() == telaPrincipal.getPainelRemoverComputador().getConfirmarButton()) {
 				try {
 					int id = Integer.parseInt(telaPrincipal.getPainelRemoverComputador().getNumeroField().getText());
 					int op = TelaMensagem.exibirMensagemConfirmacao(Mensagens.REMOVER_COMPUTADOR+"["+id+"]?");
