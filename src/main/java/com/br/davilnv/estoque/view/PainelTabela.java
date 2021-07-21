@@ -63,6 +63,12 @@ public class PainelTabela extends JPanel{
 			modelo.addRow(new Object[]{pc.getId(), pc.getNome(), pc.getProcessador(), pc.getMemoria(), pc.getHd(), pc.getSsd(), pc.getSituacao(), pc.getObservacao(), pc.getGrupo()});
 		}
 	}
+	
+	public void criarTabela(Computador pc) {
+		modelo.setNumRows(0);
+		modelo.addRow(new Object[]{pc.getId(), pc.getNome(), pc.getProcessador(), pc.getMemoria(), pc.getHd(), pc.getSsd(), pc.getSituacao(), pc.getObservacao(), pc.getGrupo()});
+
+	}
 
 	public Font getFonte() {
 		return fonte;

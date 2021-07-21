@@ -29,7 +29,7 @@ public class PainelPadrao extends JPanel{
 		setLocation(15, 15);
 		setLayout(null);
 		
-		fonte = new Font("Arial", Font.PLAIN, 12);
+		fonte = new Font("Arial", Font.BOLD, 10);
 		
 		grupoBox = new JComboBox<>();
 		try {
@@ -63,12 +63,12 @@ public class PainelPadrao extends JPanel{
 
 		buscarButton = new JButton("Buscar Computador");
 		buscarButton.setBackground(Color.WHITE);
-		buscarButton.setFont(new Font("Arial", Font.BOLD, 10));
+		buscarButton.setFont(fonte);
 		buscarButton.setBounds(30, 178, 140, 30);
 		
-		confirmarButton = new JButton("Confirmar Alteração");
+		confirmarButton = new JButton("Confirmar");
 		confirmarButton.setBackground(Color.WHITE);
-		confirmarButton.setFont(new Font("Arial", Font.BOLD, 10));
+		confirmarButton.setFont(fonte);
 		confirmarButton.setBounds(230, 178, 140, 30);
 		
 		
@@ -89,7 +89,6 @@ public class PainelPadrao extends JPanel{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.setFont(getFont());
 		g.drawString("Número do Computador:", 30, 50);
 		g.drawString("Nome do Computador:", 230, 50);
 		g.drawString("Processador:", 430, 50);
@@ -143,10 +142,6 @@ public class PainelPadrao extends JPanel{
 
 	public JComboBox<String> getGrupoBox() {
 		return grupoBox;
-	}
-
-	public Font getFonte() {
-		return fonte;
 	}
 
 }

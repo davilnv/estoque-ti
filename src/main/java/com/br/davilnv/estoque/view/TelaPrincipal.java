@@ -12,6 +12,7 @@ public class TelaPrincipal extends TelaPadrao{
 	private PainelAdicionarComputador painelAdicionarComputador;
 	private PainelAlterarComputador painelAlterarComputador;
 	private PainelRemoverComputador painelRemoverComputador;
+	private PainelBuscaComputador painelBuscaComputador;
 	private PainelTabela painelTabela;
 	private JMenu computadorMenu, computadorSubmenu;
 	private JMenuItem adicionarItem, alterarItem, removerItem, atualizarTodos, buscarPorNomeItem, buscarPorIdItem;
@@ -25,6 +26,7 @@ public class TelaPrincipal extends TelaPadrao{
 		painelAdicionarComputador = new PainelAdicionarComputador("Adicionar um Computador");
 		painelAlterarComputador = new PainelAlterarComputador("Alterar um Computador");
 		painelRemoverComputador = new PainelRemoverComputador("Remover um Computador");
+		painelBuscaComputador = new PainelBuscaComputador("Buscar Computador");
 		
 		JMenuBar menuBar = new JMenuBar();
 		
@@ -55,7 +57,7 @@ public class TelaPrincipal extends TelaPadrao{
 		add(painelAdicionarComputador);
 		add(painelAlterarComputador);
 		add(painelRemoverComputador);
-		
+		add(painelBuscaComputador);
 	}
 
 	public PainelAdicionarComputador getPainelAdicionarComputador() {
@@ -96,6 +98,10 @@ public class TelaPrincipal extends TelaPadrao{
 
 	public PainelRemoverComputador getPainelRemoverComputador() {
 		return painelRemoverComputador;
+	}
+
+	public PainelBuscaComputador getPainelBuscaComputador() {
+		return painelBuscaComputador;
 	}
 	
 }

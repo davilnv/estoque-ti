@@ -121,6 +121,26 @@ public class SQLiteJDBCDriverConnection {
 		return pc;
 		
 	}
+	
+	public static Computador buscarComputadorPorNome(String nome) throws SQLException {
+		connect();
+		String SQL = "SELECT * FROM COMPUTADOR WHERE nome = '"+ nome + "'";
+		ResultSet rs = statement.executeQuery(SQL);
+
+		int id = Integer.parseInt(rs.getObject(1).toString());
+		String processador = rs.getObject(3).toString();
+		int memoria = Integer.parseInt(rs.getObject(4).toString());
+		int hd = Integer.parseInt(rs.getObject(5).toString());
+		int ssd = Integer.parseInt(rs.getObject(6).toString());
+		String situacao = rs.getObject(7).toString();;
+		String observacao = rs.getObject(8).toString();;
+		String grupo = rs.getObject(9).toString();
+		
+		Computador pc = new Computador(id, nome, processador, memoria, hd, ssd, situacao, observacao, grupo);
+		
+		return pc;
+		
+	}
 
 	public static ArrayList<Computador> listarComputador() throws SQLException {
 		connect();

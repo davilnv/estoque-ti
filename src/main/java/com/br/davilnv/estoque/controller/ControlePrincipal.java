@@ -50,6 +50,8 @@ public class ControlePrincipal{
 		
 		telaPrincipal.getAtualizarItem().addActionListener(computadorAcao);
 		
+		telaPrincipal.getPainelBuscaComputador().getBuscarButton().addActionListener(computadorAcao);
+		
 		telaPrincipal.getBuscarPorNomeItem().addActionListener(computadorAcao);
 		
 		telaPrincipal.getBuscarPorIdItem().addActionListener(computadorAcao);
@@ -99,16 +101,7 @@ public class ControlePrincipal{
 					Computador computador = new Computador(id, nome, processador, memoria, hd, ssd, situacao, observacao, grupo);
 					SQLiteJDBCDriverConnection.adicionarComputador(computador);
 					TelaMensagem.exibirMensagemSucesso("Computador adicionado!");
-					telaPrincipal.getPainelAdicionarComputador().getNumeroField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getNomeField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getProcessadorField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getMemoriaField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getHdField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getSsdField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getSituacaoField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getObservacaoField().setText("");
-					telaPrincipal.getPainelAdicionarComputador().getGrupoBox().setSelectedIndex(0);
-					telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
+					limpezaDeCampos(telaPrincipal.getPainelAdicionarComputador());
 				} catch (Exception ee) {
 					TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
 				}
@@ -168,29 +161,19 @@ public class ControlePrincipal{
 					Computador computador = new Computador(id, nome, processador, memoria, hd, ssd, situacao, observacao, grupo);
 					SQLiteJDBCDriverConnection.alterarComputador(id, computador);
 					TelaMensagem.exibirMensagemSucesso("Computador alterado com sucesso!");
-					telaPrincipal.getPainelAlterarComputador().getNumeroField().setText("");
+					limpezaDeCampos(telaPrincipal.getPainelAlterarComputador());
 					telaPrincipal.getPainelAlterarComputador().getNumeroField().setEnabled(true);
-					telaPrincipal.getPainelAlterarComputador().getNomeField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getNomeField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getProcessadorField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getProcessadorField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getMemoriaField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getMemoriaField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getHdField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getHdField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getSsdField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getSsdField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getSituacaoField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getSituacaoField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getObservacaoField().setText("");
 					telaPrincipal.getPainelAlterarComputador().getObservacaoField().setEnabled(false);
-					telaPrincipal.getPainelAlterarComputador().getGrupoBox().setSelectedIndex(19);
 					telaPrincipal.getPainelAlterarComputador().getGrupoBox().setEnabled(false);
 					telaPrincipal.getPainelAlterarComputador().getConfirmarButton().setEnabled(false);
 					telaPrincipal.getPainelAlterarComputador().getBuscarButton().setEnabled(true);
-					telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
 				} catch (Exception ee) {
-					ee.printStackTrace();
 					TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
 				}
 				
@@ -228,24 +211,16 @@ public class ControlePrincipal{
 					if(op == 0) {
 						SQLiteJDBCDriverConnection.removerComputador(id);
 						TelaMensagem.exibirMensagemSucesso("Computador removido com sucesso!");
-						telaPrincipal.getPainelRemoverComputador().getNumeroField().setText("");
-						telaPrincipal.getPainelRemoverComputador().getNomeField().setText("");
+						limpezaDeCampos(telaPrincipal.getPainelRemoverComputador());
 						telaPrincipal.getPainelRemoverComputador().getNomeField().setEnabled(false);
-						telaPrincipal.getPainelRemoverComputador().getProcessadorField().setText("");
 						telaPrincipal.getPainelRemoverComputador().getProcessadorField().setEnabled(false);
-						telaPrincipal.getPainelRemoverComputador().getMemoriaField().setText("");
 						telaPrincipal.getPainelRemoverComputador().getMemoriaField().setEnabled(false);
-						telaPrincipal.getPainelRemoverComputador().getHdField().setText("");
 						telaPrincipal.getPainelRemoverComputador().getHdField().setEnabled(false);
-						telaPrincipal.getPainelRemoverComputador().getSsdField().setText("");
 						telaPrincipal.getPainelRemoverComputador().getSsdField().setEnabled(false);
-						telaPrincipal.getPainelRemoverComputador().getSituacaoField().setText("");
 						telaPrincipal.getPainelRemoverComputador().getSituacaoField().setEnabled(false);
-						telaPrincipal.getPainelRemoverComputador().getObservacaoField().setText("");
 						telaPrincipal.getPainelRemoverComputador().getObservacaoField().setEnabled(false);
 						telaPrincipal.getPainelRemoverComputador().getGrupoBox().setSelectedIndex(0);
 						telaPrincipal.getPainelRemoverComputador().getGrupoBox().setEnabled(false);
-						telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
 					}
 				} catch (SQLException e1) {
 					TelaMensagem.exibirMensagemErro(Mensagens.NULL_COMPUTADOR);
@@ -255,15 +230,59 @@ public class ControlePrincipal{
 			}
 			
 			if(e.getSource() == telaPrincipal.getAtualizarItem()) {
-				
+				try {
+					telaPrincipal.getPainelTabela().criarTabela(SQLiteJDBCDriverConnection.listarComputador());
+					TelaMensagem.exibirMensagemSucesso("Tabela atualizada com sucesso!");
+				} catch (SQLException e1) {
+					TelaMensagem.exibirMensagemErro(Mensagens.NULL_COMPUTADOR);
+				}
 			}
 			
 			if(e.getSource() == telaPrincipal.getBuscarPorNomeItem()) {
-				
+				telaPrincipal.getPainelRemoverComputador().setVisible(false);
+				telaPrincipal.getPainelAdicionarComputador().setVisible(false);
+				telaPrincipal.getPainelAlterarComputador().setVisible(false);
+				telaPrincipal.getPainelBuscaComputador().setVisible(true);
+				telaPrincipal.getPainelBuscaComputador().mudancaBusca = true;
+				telaPrincipal.getPainelBuscaComputador().getNomeField().setVisible(true);
+				telaPrincipal.getPainelBuscaComputador().getNumeroField().setVisible(false);
 			}
 			
 			if(e.getSource() == telaPrincipal.getBuscarPorIdItem()) {
-				
+				telaPrincipal.getPainelRemoverComputador().setVisible(false);
+				telaPrincipal.getPainelAdicionarComputador().setVisible(false);
+				telaPrincipal.getPainelAlterarComputador().setVisible(false);
+				telaPrincipal.getPainelBuscaComputador().setVisible(true);
+				telaPrincipal.getPainelBuscaComputador().mudancaBusca = false;
+				telaPrincipal.getPainelBuscaComputador().getNumeroField().setVisible(true);
+				telaPrincipal.getPainelBuscaComputador().getNomeField().setVisible(false);
+			}
+			
+			if(e.getSource() == telaPrincipal.getPainelBuscaComputador().getBuscarButton()) {
+				if (telaPrincipal.getPainelBuscaComputador().mudancaBusca) {
+					try {
+						String nome = telaPrincipal.getPainelBuscaComputador().getNomeField().getText();
+						if(nome.equals("")) {
+							throw new Exception();
+						}
+						Computador pc = SQLiteJDBCDriverConnection.buscarComputadorPorNome(nome);
+						telaPrincipal.getPainelTabela().criarTabela(pc);
+					} catch (SQLException e1) {
+						TelaMensagem.exibirMensagemErro(Mensagens.NULL_COMPUTADOR);
+					} catch (Exception e1) {
+						TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
+					}
+				} else {
+					try {
+						int id = Integer.parseInt(telaPrincipal.getPainelBuscaComputador().getNumeroField().getText());
+						Computador pc = SQLiteJDBCDriverConnection.buscarComputadorPorId(id);
+						telaPrincipal.getPainelTabela().criarTabela(pc);
+					} catch (SQLException e1) {
+						TelaMensagem.exibirMensagemErro(Mensagens.NULL_COMPUTADOR);
+					} catch (NumberFormatException e1) {
+						TelaMensagem.exibirMensagemErro(Mensagens.ERRO_CAMPOS);
+					}
+				}
 			}
 			
 		}
